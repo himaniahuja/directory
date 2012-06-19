@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget32"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_above="@+id/check_in_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+building_list/search_box"
+        android:background="#ff000000"
+        android:drawSelectorOnTop="true" />
+
+    <Button
+        android:id="@+id/check_in_button"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#ff339900"
+        android:text="@string/check_in"
+        android:textColor="#ffffffff"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+building_list/search_box"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:hint="@string/auto"
+        android:inputType="text"
+        android:maxLines="1" >
+
+        <requestFocus />
+    </EditText>
+
+</RelativeLayout>

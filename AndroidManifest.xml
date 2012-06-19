@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.cmu.sv"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="10" 													/>
+	<uses-permission android:name="android.permission.INTERNET" 							/>
+	<uses-permission android:name="android.permission.CALL_PHONE"							/>
+	<uses-permission android:name="android.permission.SEND_SMS"								/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"                          />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" 				/>
+	<uses-permission	android:name="android.permission.ACCESS_COARSE_LOCATION"		 	/>
+	
+    <application
+        android:icon="@drawable/logo"
+        android:label="@string/app_name" >
+        <uses-library android:name="com.google.android.maps" />
+        <activity
+            android:name=".CMUSVDirectoryActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CMUSVPersonActivity"
+            android:label="@string/cmusv_person_activity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PhoneCallActivity"
+            android:label="@string/phone_call_activity"
+            android:windowSoftInputMode="stateHidden"
+        	android:configChanges="keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+				<action android:name="android.intent.action.SHOW_PHONE_CALL_LIST" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    	<activity
+            android:name=".EmailActivity"
+            android:label="@string/email_activity"
+            android:windowSoftInputMode="stateHidden"
+        	android:configChanges="keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SmsActivity"
+            android:label="@string/sms_activity"
+            android:windowSoftInputMode="stateHidden"
+        	android:configChanges="keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShowMyLocationActivity"
+            android:label="@string/cmusv_location_activity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

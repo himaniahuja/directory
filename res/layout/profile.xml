@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget47"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="240dp"
+        android:layout_height="180dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/desc" />
+
+    <TextView
+        android:id="@+id/name_on_profile"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/image_view"
+        android:background="#ff990000"
+        android:gravity="center"
+        android:textColor="#ffffffff"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/blank1"
+        android:layout_width="fill_parent"
+        android:layout_height="15dp"
+        android:layout_below="@+id/name_on_profile"
+        android:background="#ff000000" />
+
+    <TextView
+        android:id="@+id/telephone"
+        android:layout_width="190dp"
+        android:layout_height="38dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/blank1"
+        android:background="#ff000000"
+        android:gravity="left"
+        android:text="@string/telephone"
+        android:textColor="#ffffffff"
+        android:textSize="24sp"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/blank3"
+        android:layout_width="fill_parent"
+        android:layout_height="15dp"
+        android:background="#ff000000" />
+
+    <Button
+        android:id="@+id/button_phone"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_alignRight="@+id/button_sms"
+        android:layout_alignTop="@+id/telephone"
+        android:background="@drawable/telephone_icon1"
+        android:onClick="onButtonClicked" />
+
+    <Button
+        android:id="@+id/button_sms"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_alignRight="@+id/button_email"
+        android:layout_below="@+id/button_phone"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/sms_icon2"
+        android:onClick="onButtonClicked" />
+
+    <Button
+        android:id="@+id/button_email"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_alignLeft="@+id/image_view"
+        android:layout_below="@+id/button_sms"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/email"
+        android:onClick="onButtonClicked" />
+
+    <TextView
+        android:id="@+id/sms_text"
+        android:layout_width="190dp"
+        android:layout_height="38dp"
+        android:layout_alignBottom="@+id/button_sms"
+        android:layout_alignParentRight="true"
+        android:background="#ff000000"
+        android:gravity="left"
+        android:text="@string/telephone"
+        android:textColor="#ffffffff"
+        android:textSize="24sp"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/email_person"
+        android:layout_width="190dp"
+        android:layout_height="38dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/button_email"
+        android:background="#ff000000"
+        android:gravity="left"
+        android:text="@string/email_id"
+        android:textColor="#ffffffff"
+        android:textSize="24sp"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/button_pin"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_alignLeft="@+id/button_email"
+        android:layout_below="@+id/button_email"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/pin2"
+        android:onClick="onButtonClicked" />
+
+    <TextView
+        android:id="@+id/find_location"
+        android:layout_width="190dp"
+        android:layout_height="38dp"
+        android:layout_alignBaseline="@+id/button_pin"
+        android:layout_alignBottom="@+id/button_pin"
+        android:layout_alignParentRight="true"
+        android:background="#ff000000"
+        android:gravity="left"
+        android:text="@string/find_location"
+        android:textColor="#ffffffff"
+        android:textSize="24sp"
+        android:typeface="sans" />
+
+</RelativeLayout>

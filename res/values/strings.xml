@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CMUSV Phone Directory</string>
+    <string name="phone_call_activity"></string>
+    <string name="sms_activity"></string>
+    <string name="cmusv_person_activity"></string>
+    <string name="cmusv_location_activity">You are here !</string>
+     <string name = "email_activity"></string>
+    <string name = "name_of_person">NameOfPerson</string>
+    <string name = "desc">ImageOfPerson</string>
+    <string name = "auto">Search</string>
+    <string name = "telephone">Telephone</string>
+    <string name = "sms">Text Message</string>
+    <string name = "email_id">Email</string>
+    <string name = "app_label">CMUSV Directory</string>
+   
+    <string name = "search_hint">Find People</string>
+    <string name = "check_in">Tell everyone where you are!</string>
+    <string name = "find_location">Not available</string>
+     <string-array name="names">
+        <item>Person1</item>
+        <item>Person2</item>
+        <item>Person3</item>
+        <item>Person4</item>
+    </string-array>
+    <string-array name="actions">
+        <item>Email</item>
+        <item>Phone</item>
+        <item>SMS</item>
+        <item>Photo</item>
+    </string-array>
+
+</resources>
