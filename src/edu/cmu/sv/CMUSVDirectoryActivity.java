@@ -9,11 +9,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +24,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -34,6 +38,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class CMUSVDirectoryActivity extends ListActivity {
+	
+	static String USER_EMAIL = "";
 	
 	private EditText filterText = null;
 	ListAdapter adapter = null;
@@ -56,8 +62,21 @@ public class CMUSVDirectoryActivity extends ListActivity {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.main);
     	
+    	Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+    	Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
+    	for (Account account : accounts) {
+    	    if (emailPattern.matcher(account.name).matches()) {
+    	        String possibleEmail = account.name;
+    	        logger.info(account.name);
+    	        if(possibleEmail.toLowerCase().endsWith("cmu.edu")) {
+    	        	logger.info("Found email");
+    	        	USER_EMAIL = possibleEmail;
+    	        }
+    	    }
+    	}
+    	
     	// read JSON 
-    	String readPeopleData = readPeopleData();
+    	String readPeopleData = CMUSVUtils.readPeopleData("http://cmusvdirectory.appspot.com/People.json");
     	
 		try {
 			jsonArray = new JSONArray(readPeopleData);
@@ -174,35 +193,5 @@ public class CMUSVDirectoryActivity extends ListActivity {
 	    filterText.removeTextChangedListener(filterTextWatcher);
 	}
 	
-	// Reading JSON data from back end.
-	public String readPeopleData() {
-		URL url;
-		StringBuffer jsonstring = null;
-		HttpURLConnection connection; 
-		
-		try{
-			 url = new URL("http://cmusvdirectory.appspot.com/People.json");
-			 connection = (HttpURLConnection) url.openConnection();
-			 connection.setConnectTimeout(1000 * 5);
-			 InputStreamReader is = new InputStreamReader(connection
-			            .getInputStream());
-			 BufferedReader buff = new BufferedReader(is);
-			 jsonstring = new StringBuffer();
-			 String line = "";
-			 do {
-			        line = buff.readLine();
-			        if (line != null)
-			            jsonstring.append(line);
-			    } while (line != null);
-			    } 
-		
-				catch (MalformedURLException e) {
-			        // TODO Auto-generated catch block
-			        e.printStackTrace();
-			    } catch (IOException e) {
-			        // TODO Auto-generated catch block
-			        e.printStackTrace();
-		}
-		return jsonstring.toString().trim();
-	}   
+	
 }

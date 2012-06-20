@@ -1,19 +1,12 @@
 package edu.cmu.sv;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Logger;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import java.util.TimeZone;
 
 import android.location.Address;
 import android.location.Geocoder;
@@ -21,6 +14,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
@@ -28,7 +22,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
-public class ShowMyLocationActivity extends MapActivity {
+public class ShowUserLocation extends MapActivity {
 
 	double currentLatitude;
 	double currentLongitude;
@@ -52,8 +46,89 @@ public class ShowMyLocationActivity extends MapActivity {
     	
     	addressText = (TextView)findViewById(R.id.addressText);
     	
+    	
+    	// http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
+	    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy); 
+	  
+		@SuppressWarnings("unchecked")
+		HashMap<String, String> location = (HashMap<String, String>) getIntent().getSerializableExtra("location_info");
+		System.out.println("coming till get address :" + location);
+		if(location != null){
+			
+			// get current date
+    		Date dt = new Date();
+    		String format = "yyyy-MM-dd";
+    			
+    		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+    		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+    		
+    		String curr_date = sdf.format(dt);
+    		
+    		String found_date = location.get("datetime").substring(0, 10);
+    		System.out.println("coming till get address :" + curr_date + found_date);
+			if (curr_date.equalsIgnoreCase(found_date)){
+				
+				double lon = Double.parseDouble(location.get("lon"));
+				double lat = Double.parseDouble(location.get("lat"));
+				double lon1 = lon * 1E6;
+				double lat1 = lat * 1E6;
+				
+				int longitude = (int)lon1;
+				int latitute = (int)lat1;
+				
+				System.out.println("New Lontitue = "+ longitude +"\n New Latitute = "+ latitute);
+				GeoPoint geopoint = new GeoPoint(latitute, longitude);
+				
+				mapController.animateTo(geopoint);
+				
+				System.out.println("coming till get address");
+				getAddress(lon, lat);
+				
+			}
+			
+		}
+		else {
+			
+			// TODO have to clear map. 
+			String no_location = "Location not available for today";
+			addressText.setText(no_location);
+		}
+			
+			
+	}
+		
+	void getAddress(Double lon, Double lat){
+        try{
+            Geocoder gcd = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = 
+                gcd.getFromLocation(lat, lon,1);
+            if (addresses.size() > 0) {
+                StringBuilder result = new StringBuilder();
+                for(int i = 0; i < addresses.size(); i++){
+                    Address address =  addresses.get(i);
+                    int maxIndex = address.getMaxAddressLineIndex();
+                    for (int x = 0; x <= maxIndex; x++ ){
+                        result.append(address.getAddressLine(x));
+                        result.append("\n");
+                    } 
+                }
+                addressText.setText(result.toString());
+            }
+        }
+        catch(IOException ex){
+            addressText.setText(ex.getMessage().toString());
+        }
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}	
+}
         
-        locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+        /*locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
         
         locationListener = new LocationListener() {
 			
@@ -136,28 +211,7 @@ public class ShowMyLocationActivity extends MapActivity {
 		
 	}
 	
-	void getAddress(){
-	        try{
-	            Geocoder gcd = new Geocoder(this, Locale.getDefault());
-	            List<Address> addresses = 
-	                gcd.getFromLocation(currentLatitude, currentLongitude,1);
-	            if (addresses.size() > 0) {
-	                StringBuilder result = new StringBuilder();
-	                for(int i = 0; i < addresses.size(); i++){
-	                    Address address =  addresses.get(i);
-	                    int maxIndex = address.getMaxAddressLineIndex();
-	                    for (int x = 0; x <= maxIndex; x++ ){
-	                        result.append(address.getAddressLine(x));
-	                        result.append("\n");
-	                    } 
-	                }
-	                addressText.setText(result.toString());
-	            }
-	        }
-	        catch(IOException ex){
-	            addressText.setText(ex.getMessage().toString());
-	        }
-	}
+
 	
 	@Override
 	protected boolean isRouteDisplayed() {
@@ -174,5 +228,5 @@ public class ShowMyLocationActivity extends MapActivity {
 
 	
 	 
-
+*/
 

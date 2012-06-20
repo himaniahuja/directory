@@ -18,6 +18,7 @@
     <string name = "search_hint">Find People</string>
     <string name = "check_in">Tell everyone where you are!</string>
     <string name = "find_location">Not available</string>
+    <string name = "no_list_data">Not available </string>
      <string-array name="names">
         <item>Person1</item>
         <item>Person2</item>

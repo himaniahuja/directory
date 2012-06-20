@@ -32,29 +32,27 @@ public final class R {
     }
     public static final class id {
         public static final int addressText=0x7f070001;
-        public static final int blank1=0x7f070008;
-        public static final int blank3=0x7f07000a;
+        public static final int blank1=0x7f070009;
         public static final int button_email=0x7f07000d;
-        public static final int button_phone=0x7f07000b;
-        public static final int button_pin=0x7f070010;
+        public static final int button_phone=0x7f07000a;
+        public static final int button_pin=0x7f07000b;
         public static final int button_sms=0x7f07000c;
         public static final int check_in_button=0x7f070004;
-        public static final int email_person=0x7f07000f;
-        public static final int find_location=0x7f070011;
-        public static final int image_view=0x7f070006;
+        public static final int each_number=0x7f070005;
+        public static final int image_view=0x7f070007;
         public static final int mapview=0x7f070002;
-        public static final int name_on_profile=0x7f070007;
+        public static final int name_on_profile=0x7f070008;
         public static final int one_item=0x7f070000;
-        public static final int sms_text=0x7f07000e;
-        public static final int telephone=0x7f070009;
         public static final int widget32=0x7f070003;
-        public static final int widget47=0x7f070005;
+        public static final int widget47=0x7f070006;
     }
     public static final class layout {
         public static final int list_item=0x7f030000;
         public static final int location=0x7f030001;
         public static final int main=0x7f030002;
-        public static final int profile=0x7f030003;
+        public static final int phone_list=0x7f030003;
+        public static final int phone_list_item=0x7f030004;
+        public static final int profile=0x7f030005;
     }
     public static final class string {
         public static final int app_label=0x7f04000c;
@@ -68,6 +66,7 @@ public final class R {
         public static final int email_id=0x7f04000b;
         public static final int find_location=0x7f04000f;
         public static final int name_of_person=0x7f040006;
+        public static final int no_list_data=0x7f040010;
         public static final int phone_call_activity=0x7f040001;
         public static final int search_hint=0x7f04000d;
         public static final int sms=0x7f04000a;

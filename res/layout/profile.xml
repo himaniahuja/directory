@@ -32,31 +32,61 @@
         android:layout_below="@+id/name_on_profile"
         android:background="#ff000000" />
 
-    <TextView
-        android:id="@+id/telephone"
-        android:layout_width="190dp"
-        android:layout_height="38dp"
-        android:layout_alignParentRight="true"
+    <Button
+        android:id="@+id/button_phone"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/image_view"
         android:layout_below="@+id/blank1"
-        android:background="#ff000000"
-        android:gravity="left"
-        android:text="@string/telephone"
-        android:textColor="#ffffffff"
-        android:textSize="24sp"
-        android:typeface="sans" />
+        android:background="@drawable/telephone_icon1"
+        android:onClick="onClick"/>
 
-    <TextView
+    <Button
+        android:id="@+id/button_pin"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/button_phone"
+        android:layout_below="@+id/button_phone"
+        android:background="@drawable/pin2"
+       	android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/button_sms"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignRight="@+id/image_view"
+        android:layout_below="@+id/button_phone"
+        android:background="@drawable/sms_icon2"
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/button_email"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/button_sms"
+        android:layout_alignLeft="@+id/button_sms"
+        android:background="@drawable/email"
+        android:onClick="onClick"/>
+
+</RelativeLayout>
+
+
+    <!--
+         <TextView
         android:id="@+id/blank3"
         android:layout_width="fill_parent"
         android:layout_height="15dp"
         android:background="#ff000000" />
+    -->
 
-    <Button
+
+    <!--
+         <Button
         android:id="@+id/button_phone"
         android:layout_width="45dp"
         android:layout_height="42dp"
-        android:layout_alignRight="@+id/button_sms"
-        android:layout_alignTop="@+id/telephone"
+        android:layout_above="@+id/button_email"
+        android:layout_alignLeft="@+id/button_email"
         android:background="@drawable/telephone_icon1"
         android:onClick="onButtonClicked" />
 
@@ -64,29 +94,17 @@
         android:id="@+id/button_sms"
         android:layout_width="45dp"
         android:layout_height="42dp"
-        android:layout_alignRight="@+id/button_email"
-        android:layout_below="@+id/button_phone"
-        android:layout_marginTop="18dp"
+        android:layout_alignLeft="@+id/button_pin"
+        android:layout_below="@+id/find_location"
         android:background="@drawable/sms_icon2"
         android:onClick="onButtonClicked" />
 
-    <Button
-        android:id="@+id/button_email"
-        android:layout_width="45dp"
-        android:layout_height="42dp"
-        android:layout_alignLeft="@+id/image_view"
-        android:layout_below="@+id/button_sms"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/email"
-        android:onClick="onButtonClicked" />
-
     <TextView
-        android:id="@+id/sms_text"
+        android:id="@+id/telephone"
         android:layout_width="190dp"
         android:layout_height="38dp"
         android:layout_alignBottom="@+id/button_sms"
-        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@android:id/list"
         android:background="#ff000000"
         android:gravity="left"
         android:text="@string/telephone"
@@ -95,40 +113,61 @@
         android:typeface="sans" />
 
     <TextView
-        android:id="@+id/email_person"
+        android:id="@+id/sms_text"
         android:layout_width="190dp"
         android:layout_height="38dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/button_email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/button_phone"
         android:background="#ff000000"
+        android:gravity="left"
+        android:text="@string/telephone"
+        android:textColor="#ffffffff"
+        android:textSize="24sp"
+        android:typeface="sans" />
+    -->
+
+
+    <!--
+         <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/blank2" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/email_person"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/find_location"
+        android:background="#ff000000"
+        android:paddingLeft="2dp"
         android:gravity="left"
         android:text="@string/email_id"
         android:textColor="#ffffffff"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:typeface="sans" />
-
-    <Button
-        android:id="@+id/button_pin"
-        android:layout_width="45dp"
-        android:layout_height="42dp"
-        android:layout_alignLeft="@+id/button_email"
-        android:layout_below="@+id/button_email"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/pin2"
-        android:onClick="onButtonClicked" />
 
     <TextView
         android:id="@+id/find_location"
-        android:layout_width="190dp"
-        android:layout_height="38dp"
-        android:layout_alignBaseline="@+id/button_pin"
-        android:layout_alignBottom="@+id/button_pin"
-        android:layout_alignParentRight="true"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/blank1"
         android:background="#ff000000"
+        android:paddingLeft="2dp"
         android:gravity="left"
         android:text="@string/find_location"
         android:textColor="#ffffffff"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:typeface="sans" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/blank2"
+        android:layout_width="fill_parent"
+        android:layout_height="15dp"
+        android:layout_below="@+id/email_person"
+        android:background="#ff000000" />
+    -->
