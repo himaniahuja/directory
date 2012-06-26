@@ -7,7 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.logging.Logger;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -16,11 +21,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
 
 public class ShowUserLocation extends MapActivity {
 
@@ -32,6 +39,29 @@ public class ShowUserLocation extends MapActivity {
 	MapView mapview;
 	LocationManager locationManager;
 	LocationListener locationListener;
+	GeoPoint geopoint;
+	
+	class MapOverlay extends com.google.android.maps.Overlay
+	{
+
+
+	    @Override
+	    public boolean draw(Canvas canvas, MapView mapView, 
+	    boolean shadow, long when) 
+	    {
+	        super.draw(canvas, mapView, shadow);                   
+
+	        //---translate the GeoPoint to screen pixels---
+	        Point screenPts = new Point();
+	        mapView.getProjection().toPixels(geopoint, screenPts);
+
+	        //---add the marker---
+	        Bitmap bmp = BitmapFactory.decodeResource(
+	            getResources(), R.drawable.pin3);            
+	        canvas.drawBitmap(bmp, screenPts.x, screenPts.y-50, null);         
+	        return true;
+	    }
+	} 
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,9 +73,7 @@ public class ShowUserLocation extends MapActivity {
     	mapview.setBuiltInZoomControls(true);
 		mapController = mapview.getController();
 	    mapController.setZoom(16);
-    	
     	addressText = (TextView)findViewById(R.id.addressText);
-    	
     	
     	// http://stackoverflow.com/questions/6343166/android-os-networkonmainthreadexception
 	    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -53,9 +81,8 @@ public class ShowUserLocation extends MapActivity {
 	  
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> location = (HashMap<String, String>) getIntent().getSerializableExtra("location_info");
-		System.out.println("coming till get address :" + location);
 		if(location != null){
-			
+			Logger.getAnonymousLogger().info("location obj " +location);
 			// get current date
     		Date dt = new Date();
     		String format = "yyyy-MM-dd";
@@ -66,32 +93,42 @@ public class ShowUserLocation extends MapActivity {
     		String curr_date = sdf.format(dt);
     		
     		String found_date = location.get("datetime").substring(0, 10);
-    		System.out.println("coming till get address :" + curr_date + found_date);
-			if (curr_date.equalsIgnoreCase(found_date)){
+    		Logger.getAnonymousLogger().info("date " + found_date + " " + curr_date);
+    		if (curr_date.equalsIgnoreCase(found_date)){
+    			Logger.getAnonymousLogger().info("Current location");
+    			
 				
-				double lon = Double.parseDouble(location.get("lon"));
-				double lat = Double.parseDouble(location.get("lat"));
-				double lon1 = lon * 1E6;
-				double lat1 = lat * 1E6;
-				
-				int longitude = (int)lon1;
-				int latitute = (int)lat1;
-				
-				System.out.println("New Lontitue = "+ longitude +"\n New Latitute = "+ latitute);
-				GeoPoint geopoint = new GeoPoint(latitute, longitude);
-				
-				mapController.animateTo(geopoint);
-				
-				System.out.println("coming till get address");
-				getAddress(lon, lat);
-				
-			}
+    		} else {
+    			String no_location = "Location not available for today. Showing previous address";
+    			Toast.makeText(getBaseContext(), 
+    					no_location, Toast.LENGTH_LONG).show();	
+    			
+    		}
+    		double lon = Double.parseDouble(location.get("lon"));
+			double lat = Double.parseDouble(location.get("lat"));
+			double lon1 = lon * 1E6;
+			double lat1 = lat * 1E6;
 			
+			int longitude = (int)lon1;
+			int latitute = (int)lat1;
+			geopoint = new GeoPoint(latitute, longitude);
+			
+			mapController.animateTo(geopoint);
+			getAddress(lon, lat);
+			
+			//---Add a location marker---
+		    MapOverlay mapOverlay = new MapOverlay();
+		    List<Overlay> listOfOverlays = mapview.getOverlays();
+		    Logger.getAnonymousLogger().info(" " + listOfOverlays);
+			listOfOverlays.clear();
+		    listOfOverlays.add(mapOverlay);  
+		    
+		    //mapview.invalidate();			    
 		}
 		else {
 			
 			// TODO have to clear map. 
-			String no_location = "Location not available for today";
+			String no_location = "Location not available for today.";
 			addressText.setText(no_location);
 		}
 			

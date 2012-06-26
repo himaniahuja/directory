@@ -2,7 +2,6 @@ package edu.cmu.sv;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 import android.app.ListActivity;
 import android.content.ActivityNotFoundException;

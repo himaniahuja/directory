@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 public class CMUSVUtils {
 
@@ -14,14 +15,16 @@ public class CMUSVUtils {
 	public static String readPeopleData(String uri) {
 		URL url;
 		StringBuffer jsonstring = null;
-		HttpURLConnection connection; 
+		HttpURLConnection connection;
+		
+		Logger.getAnonymousLogger().info("Getting data for " + uri);
 
 		try{
 			url = new URL(uri);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setConnectTimeout(1000 * 5);
-			InputStreamReader is = new InputStreamReader(connection
-					.getInputStream());
+			
+			InputStreamReader is = new InputStreamReader(connection.getInputStream());
 			BufferedReader buff = new BufferedReader(is);
 			jsonstring = new StringBuffer();
 			String line = "";
@@ -38,7 +41,18 @@ public class CMUSVUtils {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} /*catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		Logger.getAnonymousLogger().info("Returning Data " + jsonstring);
+
+		if (null != jsonstring) {
+			return jsonstring.toString().trim();
+		} else {
+			return null;
 		}
-		return jsonstring.toString().trim();
 	}   
 }
+

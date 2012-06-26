@@ -2,10 +2,8 @@ package edu.cmu.sv;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -39,7 +37,8 @@ import android.widget.SimpleAdapter;
 
 public class CMUSVDirectoryActivity extends ListActivity {
 	
-	static String USER_EMAIL = "";
+	static String USER_EMAIL = "himani.ahuja@sv.cmu.edu";
+	static final String PEOPLE_JSON_VERSION = "1.0";
 	
 	private EditText filterText = null;
 	ListAdapter adapter = null;
@@ -75,11 +74,32 @@ public class CMUSVDirectoryActivity extends ListActivity {
     	    }
     	}
     	
-    	// read JSON 
-    	String readPeopleData = CMUSVUtils.readPeopleData("http://cmusvdirectory.appspot.com/People.json");
-    	
+    	// check people data version from backend
+    	String peopleDataVersion = CMUSVUtils.readPeopleData("http://cmusvdirectory.appspot.com/Version");
+    	StringBuffer readPeopleData = new StringBuffer();
+    	if (null == peopleDataVersion || peopleDataVersion.equalsIgnoreCase(PEOPLE_JSON_VERSION)) {
+    		logger.info("version is equal");
+    		InputStream is;
+			try {
+				String str = "";
+				is = this.getResources().getAssets().open("People.json");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+	    		if (is!=null) {							
+	    			while ((str = reader.readLine()) != null) {	
+	    				readPeopleData.append(str + "\n" );
+	    			}				
+	    		}		
+	    		is.close();	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	} else {
+    		// read JSON 
+    		readPeopleData.append(CMUSVUtils.readPeopleData("http://cmusvdirectory.appspot.com/People.json"));
+    	}
 		try {
-			jsonArray = new JSONArray(readPeopleData);
+			jsonArray = new JSONArray(readPeopleData.toString());
 		} catch (JSONException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -128,7 +148,6 @@ public class CMUSVDirectoryActivity extends ListActivity {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			}
-			
     	}
     	
     	//http://p-xr.com/android-tutorial-how-to-parse-read-json-data-into-a-android-listview/
